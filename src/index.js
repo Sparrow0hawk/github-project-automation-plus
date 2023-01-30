@@ -9,7 +9,15 @@ const generateMutationQuery = require('./generate-mutation-query');
 	try {
 		const token = core.getInput('repo-token');
 		const project = core.getInput('project');
-		const column = core.getInput('column');
+
+		if (core.getInput('column') ) {
+			const column = core.getInput('column');
+		} else if (core.getInput('id') ) {
+			const id = core.getInput('id')
+		} else {
+			throw new Error(`Please either specify a column name or column id`);
+		}
+
 		const action = core.getInput('action') || 'update';
 
 		// Get data from the current action
